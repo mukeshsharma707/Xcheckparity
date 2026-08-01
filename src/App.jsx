@@ -1,45 +1,58 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
 import './App.css'
 
 function App() {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState('')
+  const [message, setMessage] = useState('')
 
   const handleChange = (event) => {
-    setInput(event.target.value);
-  };
-console.log(input);
+    setInput(event.target.value)
+  }
 
-const handleClick=()=>{
-  if(input.trim()===''){
-    document.getElementById('result').innerText='Please enter a number';
-  }else if(isNaN(input)){
-    document.getElementById('result').innerText='Not a valid number!';
-  }else{
-    const number = parseInt(input);
+  const handleClick = () => {
+    const trimmedInput = input.trim()
+
+    if (trimmedInput === '') {
+      setMessage('Error: Please enter a number')
+      return
+    }
+
+    const number = Number(trimmedInput)
+
+    if (Number.isNaN(number)) {
+      setMessage('Error: Not a valid number')
+      return
+    }
+
     if (number % 2 === 0) {
-      document.getElementById('result').innerText=`The number ${number} is even!`;
+      setMessage(`Success: ${number} is even`)
     } else {
-      document.getElementById('result').innerText=`Oops, ${number} is odd!`;
+      setMessage(`Error: ${number} is odd`)
     }
   }
-}
-
 
   return (
-    <>
     <div className="outer-container">
-<div className="inner-container">
-<h2>Even or Odd Checker</h2>
-<input style={{padding:'5px', margin: '10px', width: '250px', display: 'block', margin: '0 auto',border:'1px solid #ccc', marginBottom:'5px',borderRadius:'5px'}} type="text" onChange={handleChange} placeholder="Enter a number" />
-<button style={{padding:'5px', margin: '10px', width: '265px', background:'blue',color:'white', border:'none', borderRadius:'5px', display: 'block', margin: '0 auto', marginBottom:'5px'}} onClick={handleClick}>Check</button>
-<p id="result"></p>
-</div>
+      <div className="inner-container">
+        <h2>Even or Odd Checker</h2>
+        <input
+          name="number"
+          value={input}
+          style={{ padding: '5px', margin: '10px', width: '250px', display: 'block', margin: '0 auto', border: '1px solid #ccc', marginBottom: '5px', borderRadius: '5px' }}
+          type="text"
+          onChange={handleChange}
+          placeholder="Enter a number"
+        />
+        <button
+          type="button"
+          style={{ padding: '5px', margin: '10px', width: '265px', background: 'blue', color: 'white', border: 'none', borderRadius: '5px', display: 'block', margin: '0 auto', marginBottom: '5px' }}
+          onClick={handleClick}
+        >
+          Check
+        </button>
+        <p id="result">{message}</p>
+      </div>
     </div>
-     
-    </>
   )
 }
 
