@@ -20,14 +20,14 @@ function App() {
     const number = Number(trimmedInput)
 
     if (Number.isNaN(number)) {
-      setMessage('Error: Not a valid number')
+      setMessage('Not a valid number!')
       return
     }
 
     if (number % 2 === 0) {
-      setMessage(`Success: ${number} is even`)
+      setMessage(`The number ${number} is even!`)
     } else {
-      setMessage(`Error: ${number} is odd`)
+      setMessage(`Oops, ${number} is odd!`)
     }
   }
 
